@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Re:Spot Artists</title>
+</head>
+<body data-page="artists">
+    <aside class="sidebar" aria-label="Main navigation">
+        <a class="logo" href="index.html" aria-label="Re:Spot home"><img src="logo.png" alt=""><span>Re:Spot</span></a>
+        <nav class="primary-nav" aria-label="Primary">
+            <a class="nav-link" href="index.html"><span class="nav-icon home-icon"></span>Home</a>
+            <a class="nav-link" href="search.html"><span class="nav-icon search-icon"></span>Search</a>
+            <a class="nav-link" href="#"><span class="nav-icon browse-icon"></span>Browse</a>
+            <a class="nav-link" href="#"><span class="nav-icon radio-icon"></span>Radio</a>
+        </nav>
+        <section class="library" aria-labelledby="library-title">
+            <div class="library-heading"><h2 id="library-title">Your library</h2><button type="button" aria-label="Create playlist">+</button></div>
+            <nav class="library-nav" aria-label="Library">
+                <a class="nav-link" href="playlists.html"><span class="nav-icon playlist-icon"></span>Playlists</a>
+                <a class="nav-link active" href="artists.html"><span class="nav-icon artist-icon"></span>Artists</a>
+                <a class="nav-link" href="albums.html"><span class="nav-icon album-icon"></span>Albums</a>
+            </nav>
+        </section>
+    </aside>
+
+    <main class="app-shell">
+        <header class="topbar">
+            <div class="history-actions" aria-label="History navigation"><button type="button" aria-label="Back">&lsaquo;</button><button type="button" aria-label="Forward">&rsaquo;</button></div>
+            <div class="topbar-actions"><a class="pill-button" href="upload-track.html">Upload track</a></div>
+        </header>
+
+        <section class="hero-section compact-hero" aria-labelledby="artists-page-title">
+            <h1 id="artists-page-title" data-page-title>Artists</h1>
+            <p data-page-subtitle>Artists from the full music library</p>
+        </section>
+
+        <section class="content-section" aria-labelledby="artists-grid-title">
+            <div class="section-heading"><div><h2 id="artists-grid-title">All artists</h2></div></div>
+            <div class="card-grid artist-grid" data-card-grid></div>
+        </section>
+    </main>
+
+    <button class="floating-player" type="button" aria-label="Play">&#9654;</button>
+    <script src="../javascript/music-data.js"></script>
+    <script src="../javascript/library-pages.js"></script>
+</body>
+</html>

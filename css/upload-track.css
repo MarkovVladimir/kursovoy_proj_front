@@ -1,0 +1,372 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    color: #090909;
+    background: #f1e9dc;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: inherit;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+.page-header {
+    gap: 32px;
+    min-height: 70px;
+    border-top: 6px solid #0d0d0d;
+    border-bottom: 1px solid #0d0d0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1e9dc;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.brand img {
+    display: block;
+    width: 64px;
+    max-width: 48vw;
+    height: auto;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1;
+}
+
+.upload-main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 64px 24px;
+    background: var(--page, #f1e9dc);
+}
+
+.upload-container {
+    width: 100%;
+    max-width: 900px;
+}
+
+.upload-header {
+    margin-bottom: 32px;
+}
+
+.upload-header h1 {
+    margin: 0 0 8px;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text, #0d0d0d);
+}
+
+.upload-header p {
+    margin: 0;
+    font-size: 16px;
+    color: var(--muted, #4f463d);
+}
+
+.upload-form-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 40px;
+}
+
+@media (max-width: 768px) {
+    .upload-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.section-label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    color: var(--muted, #4f463d);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.upload-column-left {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-drop-area {
+    position: relative;
+    border-radius: 8px;
+    background: var(--sidebar, #e8ddc9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.file-drop-area:hover {
+    background: var(--sidebar-active, #d8cab0);
+}
+
+.file-drop-area input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.cover-field .file-drop-area {
+    aspect-ratio: 1 / 1;
+}
+
+.audio-field .file-drop-area {
+    height: 120px;
+    background: transparent;
+    border: 2px dashed #a39581; /* adjusted from --muted */
+}
+
+.audio-field .file-drop-area:hover {
+    border-style: solid;
+    background: var(--sidebar, #e8ddc9);
+}
+
+.drop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    pointer-events: none;
+    color: var(--text, #0d0d0d);
+}
+
+.drop-icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin-bottom: 4px;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+}
+
+.drop-icon.music-icon {
+    border-radius: 50%;
+}
+
+.drop-text {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.drop-hint {
+    font-size: 12px;
+    color: var(--muted, #4f463d);
+}
+
+/* Right column */
+.upload-column-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.field-row {
+    display: flex;
+    gap: 16px;
+}
+
+.field-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field-item.full-width {
+    width: 100%;
+}
+
+.field-item.flex-1 {
+    flex: 1;
+}
+
+.field-item.flex-width {
+    width: 120px;
+}
+
+.field-item label {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--muted, #4f463d);
+    text-transform: uppercase;
+}
+
+.field-item label .req {
+    color: var(--orange, #ff5a0a);
+}
+
+.field-item input,
+.field-item select {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid #c8bead;
+    border-radius: 4px;
+    background: var(--card, #f8f2e8);
+    color: var(--text, #0d0d0d);
+    font-size: 14px;
+    transition: outline-color 0.2s, border-color 0.2s;
+    outline: 2px solid transparent;
+    outline-offset: -1px;
+}
+
+.field-item input:focus,
+.field-item select:focus {
+    border-color: var(--orange, #ff5a0a);
+    outline-color: var(--orange, #ff5a0a);
+}
+
+.field-item input::placeholder {
+    color: rgba(13, 13, 13, 0.4); /* adjusted --text with opacity */
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%) scaleY(0.6);
+    pointer-events: none;
+    font-size: 12px;
+    color: var(--muted, #4f463d);
+}
+
+.field-item select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.upload-guidelines {
+    background: var(--sidebar, #e8ddc9);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 32px;
+}
+
+.upload-guidelines h4 {
+    margin: 0 0 12px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    color: var(--muted, #4f463d);
+}
+
+.upload-guidelines ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text, #0d0d0d);
+}
+
+.upload-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.upload-actions button {
+    height: 48px;
+    border-radius: 24px;
+    padding: 0 32px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s, filter 0.2s;
+}
+
+.upload-actions button:hover {
+    filter: brightness(1.05);
+}
+
+.upload-actions button:active {
+    transform: scale(0.98);
+}
+
+.upload-btn {
+    background: var(--blue, #17399f); 
+    /* using blue or orange for CTA as per project theme, dark mode uses green but this is light theme */
+    color: #fff;
+    border: none;
+    flex: 1;
+    max-width: 200px;
+}
+
+.cancel-btn {
+    background: transparent;
+    color: var(--text, #0d0d0d);
+    border: 1px solid var(--text, #0d0d0d);
+}
+
+.form-message {
+    min-height: 18px;
+    margin: 6px 0 0;
+    color: #17652f;
+    font-size: 13px;
+    line-height: 1.35;
+    text-align: center;
+}
+
+.form-message.is-error {
+    color: #9b1c1c;
+}
+
+@media (max-width: 560px) {
+    .page-header {
+        min-height: 64px;
+    }
+
+    .brand img {
+        width: 52px;
+    }
+}
