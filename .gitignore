@@ -1,0 +1,6 @@
+example/
+Курсовой Фронт .docx
+node_modules/
+dist/
+vite-dev*.log
+package-lock.json
