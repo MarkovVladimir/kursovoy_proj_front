@@ -25,7 +25,7 @@ input {
     font: inherit;
 }
 
-.page-header {
+.upload-page__header {
     gap: 32px;
     min-height: 70px;
     border-top: 6px solid #0d0d0d;
@@ -36,27 +36,27 @@ input {
     background: #f1e9dc;
 }
 
-.brand {
+.upload-page__brand {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
 }
 
-.brand img {
+.upload-page__logo {
     display: block;
     width: 64px;
     max-width: 48vw;
     height: auto;
 }
 
-.page-header h1 {
+.upload-page__title {
     margin: 0;
     font-size: 26px;
     line-height: 1;
 }
 
-.upload-main {
+.upload-page__main {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -64,16 +64,16 @@ input {
     background: var(--page, #f1e9dc);
 }
 
-.upload-container {
+.upload-page__container {
     width: 100%;
     max-width: 900px;
 }
 
-.upload-header {
+.upload-page__intro {
     margin-bottom: 32px;
 }
 
-.upload-header h1 {
+.upload-page__intro-title {
     margin: 0 0 8px;
     font-size: 36px;
     font-weight: 800;
@@ -81,25 +81,25 @@ input {
     color: var(--text, #0d0d0d);
 }
 
-.upload-header p {
+.upload-page__intro-text {
     margin: 0;
     font-size: 16px;
     color: var(--muted, #4f463d);
 }
 
-.upload-form-grid {
+.upload-form {
     display: grid;
     grid-template-columns: 340px 1fr;
     gap: 40px;
 }
 
 @media (max-width: 768px) {
-    .upload-form-grid {
+    .upload-form {
         grid-template-columns: 1fr;
     }
 }
 
-.section-label {
+.upload-form__section-label {
     display: block;
     font-size: 12px;
     font-weight: bold;
@@ -109,18 +109,18 @@ input {
     text-transform: uppercase;
 }
 
-.upload-column-left {
+.upload-form__column--media {
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
 
-.field-group {
+.upload-form__file-group {
     display: flex;
     flex-direction: column;
 }
 
-.file-drop-area {
+.upload-form__dropzone {
     position: relative;
     border-radius: 8px;
     background: var(--sidebar, #e8ddc9);
@@ -133,11 +133,11 @@ input {
     transition: background 0.2s, border-color 0.2s;
 }
 
-.file-drop-area:hover {
+.upload-form__dropzone:hover {
     background: var(--sidebar-active, #d8cab0);
 }
 
-.file-drop-area input[type="file"] {
+.upload-form__file-input {
     position: absolute;
     inset: 0;
     opacity: 0;
@@ -145,22 +145,22 @@ input {
     z-index: 2;
 }
 
-.cover-field .file-drop-area {
+.upload-form__dropzone--cover {
     aspect-ratio: 1 / 1;
 }
 
-.audio-field .file-drop-area {
+.upload-form__dropzone--dashed {
     height: 120px;
     background: transparent;
     border: 2px dashed #a39581; /* adjusted from --muted */
 }
 
-.audio-field .file-drop-area:hover {
+.upload-form__dropzone--dashed:hover {
     border-style: solid;
     background: var(--sidebar, #e8ddc9);
 }
 
-.drop-content {
+.upload-form__drop-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -170,7 +170,7 @@ input {
     color: var(--text, #0d0d0d);
 }
 
-.drop-icon {
+.upload-form__drop-icon {
     display: block;
     width: 32px;
     height: 32px;
@@ -179,69 +179,69 @@ input {
     border-radius: 4px;
 }
 
-.drop-icon.music-icon {
+.upload-form__drop-icon--music {
     border-radius: 50%;
 }
 
-.drop-text {
+.upload-form__drop-text {
     font-size: 15px;
     font-weight: bold;
 }
 
-.drop-hint {
+.upload-form__drop-hint {
     font-size: 12px;
     color: var(--muted, #4f463d);
 }
 
 /* Right column */
-.upload-column-right {
+.upload-form__column--info {
     display: flex;
     flex-direction: column;
 }
 
-.form-fields {
+.upload-form__fields {
     display: flex;
     flex-direction: column;
     gap: 16px;
     margin-bottom: 24px;
 }
 
-.field-row {
+.upload-form__field-row {
     display: flex;
     gap: 16px;
 }
 
-.field-item {
+.upload-form__field {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.field-item.full-width {
+.upload-form__field--full {
     width: 100%;
 }
 
-.field-item.flex-1 {
+.upload-form__field--grow {
     flex: 1;
 }
 
-.field-item.flex-width {
+.upload-form__field--year {
     width: 120px;
 }
 
-.field-item label {
+.upload-form__label {
     font-size: 12px;
     font-weight: bold;
     color: var(--muted, #4f463d);
     text-transform: uppercase;
 }
 
-.field-item label .req {
+.upload-form__required {
     color: var(--orange, #ff5a0a);
 }
 
-.field-item input,
-.field-item select {
+.upload-form__input,
+.upload-form__select-control {
     width: 100%;
     min-height: 48px;
     padding: 0 14px;
@@ -255,21 +255,21 @@ input {
     outline-offset: -1px;
 }
 
-.field-item input:focus,
-.field-item select:focus {
+.upload-form__input:focus,
+.upload-form__select-control:focus {
     border-color: var(--orange, #ff5a0a);
     outline-color: var(--orange, #ff5a0a);
 }
 
-.field-item input::placeholder {
+.upload-form__input::placeholder {
     color: rgba(13, 13, 13, 0.4); /* adjusted --text with opacity */
 }
 
-.select-wrapper {
+.upload-form__select {
     position: relative;
 }
 
-.select-wrapper::after {
+.upload-form__select::after {
     content: "▼";
     position: absolute;
     right: 14px;
@@ -280,20 +280,20 @@ input {
     color: var(--muted, #4f463d);
 }
 
-.field-item select {
+.upload-form__select-control {
     appearance: none;
     -webkit-appearance: none;
     cursor: pointer;
 }
 
-.upload-guidelines {
+.upload-form__guidelines {
     background: var(--sidebar, #e8ddc9);
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 32px;
 }
 
-.upload-guidelines h4 {
+.upload-form__guidelines-title {
     margin: 0 0 12px;
     font-size: 11px;
     font-weight: bold;
@@ -301,7 +301,7 @@ input {
     color: var(--muted, #4f463d);
 }
 
-.upload-guidelines ul {
+.upload-form__guidelines-list {
     margin: 0;
     padding-left: 18px;
     font-size: 13px;
@@ -309,13 +309,13 @@ input {
     color: var(--text, #0d0d0d);
 }
 
-.upload-actions {
+.upload-form__actions {
     display: flex;
     gap: 16px;
     align-items: center;
 }
 
-.upload-actions button {
+.upload-form__button {
     height: 48px;
     border-radius: 24px;
     padding: 0 32px;
@@ -325,15 +325,15 @@ input {
     transition: transform 0.1s, filter 0.2s;
 }
 
-.upload-actions button:hover {
+.upload-form__button:hover {
     filter: brightness(1.05);
 }
 
-.upload-actions button:active {
+.upload-form__button:active {
     transform: scale(0.98);
 }
 
-.upload-btn {
+.upload-form__button--submit {
     background: var(--blue, #17399f); 
     /* using blue or orange for CTA as per project theme, dark mode uses green but this is light theme */
     color: #fff;
@@ -342,13 +342,13 @@ input {
     max-width: 200px;
 }
 
-.cancel-btn {
+.upload-form__button--cancel {
     background: transparent;
     color: var(--text, #0d0d0d);
     border: 1px solid var(--text, #0d0d0d);
 }
 
-.form-message {
+.upload-form__message {
     min-height: 18px;
     margin: 6px 0 0;
     color: #17652f;
@@ -357,16 +357,16 @@ input {
     text-align: center;
 }
 
-.form-message.is-error {
+.upload-form__message--error {
     color: #9b1c1c;
 }
 
 @media (max-width: 560px) {
-    .page-header {
+    .upload-page__header {
         min-height: 64px;
     }
 
-    .brand img {
+    .upload-page__logo {
         width: 52px;
     }
 }

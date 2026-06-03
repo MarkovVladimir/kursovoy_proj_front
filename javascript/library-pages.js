@@ -8,8 +8,8 @@ const tracks = MusicData.getTracks();
 
 function createCover(type = "track") {
     const cover = document.createElement("div");
-    cover.className = type === "artist" ? "artist-avatar list-avatar" : "cover small-cover gradient-cover";
-    cover.innerHTML = type === "artist" ? "<span></span>" : '<span class="music-mark"></span>';
+    cover.className = type === "artist" ? "artist-card__avatar" : "cover cover--small";
+    cover.innerHTML = type === "artist" ? "<span></span>" : '<span class="cover__mark"></span>';
     return cover;
 }
 
@@ -32,20 +32,20 @@ function renderTracks(items) {
 
     items.forEach((track, index) => {
         const row = document.createElement("article");
-        row.className = "track-row";
+        row.className = "track-list__row";
         row.innerHTML = `
-            <span class="track-number">${index + 1}</span>
-            <div class="track-main"></div>
-            <span class="track-album">${escapeHtml(track.album || "Single")}</span>
-            <span class="track-year">${track.year || ""}</span>
+            <span class="track-list__index">${index + 1}</span>
+            <div class="track-list__main"></div>
+            <span class="track-list__meta">${escapeHtml(track.album || "Single")}</span>
+            <span class="track-list__duration">${track.year || ""}</span>
         `;
 
-        const main = row.querySelector(".track-main");
+        const main = row.querySelector(".track-list__main");
         main.append(createCover());
         main.insertAdjacentHTML("beforeend", `
-            <span>
-                <strong>${escapeHtml(track.title)}</strong>
-                <small>${escapeHtml(track.artist)}</small>
+            <span class="track-list__text">
+                <strong class="track-list__title">${escapeHtml(track.title)}</strong>
+                <small class="track-list__artist">${escapeHtml(track.artist)}</small>
             </span>
         `);
 
@@ -70,8 +70,8 @@ function renderCollectionCards(items, options) {
         }
 
         card.insertAdjacentHTML("beforeend", `
-            <h3>${escapeHtml(item.title)}</h3>
-            <p>${escapeHtml(item.description)}</p>
+            <h3 class="${options.artist ? "artist-card__title" : "music-card__title"}">${escapeHtml(item.title)}</h3>
+            <p class="${options.artist ? "artist-card__meta" : "music-card__meta"}">${escapeHtml(item.description)}</p>
         `);
         cardGrid.append(card);
     });

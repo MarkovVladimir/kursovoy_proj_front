@@ -1,4 +1,4 @@
-const DB_NAME = "respot_music_player";
+﻿const DB_NAME = "respot_music_player";
 const DB_VERSION = 1;
 const TRACK_STORE = "tracks";
 const PLAYLIST_STORE = "playlists";
@@ -214,9 +214,9 @@ function coverMarkup(track, sizeClass = "") {
     const label = escapeHtml((track.title || "?").slice(0, 1).toUpperCase());
     const style = `style="background: linear-gradient(135deg, ${track.colorA || "#1ed760"}, ${track.colorB || "#6d8cff"});"`;
     if (track.coverUrl) {
-        return `<div class="cover-art ${sizeClass}" ${style}><img src="${track.coverUrl}" alt=""></div>`;
+        return `<div class="cover ${sizeClass}" ${style}><img class="cover__image" src="${track.coverUrl}" alt=""></div>`;
     }
-    return `<div class="cover-art ${sizeClass}" ${style}>${label}</div>`;
+    return `<div class="cover ${sizeClass}" ${style}>${label}</div>`;
 }
 
 function getPlaylistCoverUrl(playlist) {
@@ -231,7 +231,7 @@ function playlistCoverMarkup(playlist, extraClass = "") {
     const label = escapeHtml((playlist.name || "?").slice(0, 1).toUpperCase());
     const coverUrl = getPlaylistCoverUrl(playlist);
     if (coverUrl) {
-        return `<span class="playlist-cover ${extraClass}"><img src="${coverUrl}" alt=""></span>`;
+        return `<span class="playlist-cover ${extraClass}"><img class="playlist-cover__image" src="${coverUrl}" alt=""></span>`;
     }
     return `<span class="playlist-cover ${extraClass}">${label}</span>`;
 }
@@ -243,9 +243,9 @@ function toast(title, message) {
         return;
     }
     stack.insertAdjacentHTML("beforeend", `
-        <div class="toast" data-toast-id="${id}">
-            <strong>${escapeHtml(title)}</strong>
-            <p>${escapeHtml(message)}</p>
+        <div class="toast toast-stack__item" data-toast-id="${id}">
+            <strong class="toast__title">${escapeHtml(title)}</strong>
+            <p class="toast__message">${escapeHtml(message)}</p>
         </div>
     `);
     setTimeout(() => {
@@ -693,10 +693,10 @@ async function addItunesTrack(trackId) {
 
 function SearchBar() {
     return `
-        <header class="topbar">
-            <div class="search-wrap">
-                <span class="icon">⌕</span>
-                <input class="search-input" data-action="search" type="search" value="${escapeHtml(state.query)}" placeholder="Поиск по названию, исполнителю или альбому">
+        <header class="search-bar">
+            <div class="search-bar__field">
+                <span class="search-bar__icon">⌕</span>
+                <input class="search-bar__input" data-action="search" type="search" value="${escapeHtml(state.query)}" placeholder="Поиск по названию, исполнителю или альбому">
             </div>
         </header>
     `;
@@ -706,8 +706,8 @@ function FilterControls() {
     const genres = ["all", ...new Set(state.tracks.map((track) => track.genre).filter(Boolean))];
     const albums = ["all", ...new Set(state.tracks.map((track) => track.album).filter(Boolean))];
     return `
-        <section class="library-controls" aria-label="Фильтры библиотеки">
-            <div class="filters">
+        <section class="library__controls" aria-label="Фильтры библиотеки">
+            <div class="library__filters">
                 <select class="select-input" data-action="genre">
                     ${genres.map((genre) => `<option value="${escapeHtml(genre)}" ${genre === state.genre ? "selected" : ""}>${genre === "all" ? "Все жанры" : escapeHtml(genre)}</option>`).join("")}
                 </select>
@@ -731,36 +731,36 @@ function Sidebar() {
     ];
     return `
         <aside class="sidebar">
-            <div class="brand"><span class="brand-mark"><img src="${LOGO_URL}" alt=""></span><span>Re:Spot</span></div>
-            <nav class="nav-group">
+            <div class="sidebar__brand"><img class="sidebar__brand-mark" src="${LOGO_URL}" alt=""><span class="sidebar__brand-name">Re:Spot</span></div>
+            <nav class="sidebar__nav">
                 ${nav.map(([view, icon, label]) => `
-                    <button class="nav-button ${state.view === view || (view === "playlists" && state.view === "playlist") ? "active" : ""}" data-view="${view}" type="button">
-                        <span class="icon">${icon}</span>${label}
+                    <button class="sidebar__nav-button ${state.view === view || (view === "playlists" && state.view === "playlist") ? "sidebar__nav-button--active" : ""}" data-view="${view}" type="button">
+                        <span class="sidebar__nav-icon">${icon}</span>${label}
                     </button>
                 `).join("")}
             </nav>
-            <section class="sidebar-section">
-                <h2 class="sidebar-heading">Новый плейлист</h2>
-                <form class="create-form" data-action="create-playlist">
+            <section class="sidebar__section">
+                <h2 class="sidebar__heading">Новый плейлист</h2>
+                <form class="sidebar__create-form" data-action="create-playlist">
                     <input class="text-input" name="name" type="text" maxlength="40" placeholder="Название">
                     <button class="icon-button" type="submit" title="Создать">+</button>
                 </form>
             </section>
-            <section class="sidebar-section">
-                <h2 class="sidebar-heading">Ваши плейлисты</h2>
-                <div class="playlist-rail">
+            <section class="sidebar__section">
+                <h2 class="sidebar__heading">Ваши плейлисты</h2>
+                <div class="sidebar__playlist-rail">
                     ${state.playlists.map((playlist) => `
-                        <button class="${state.selectedPlaylistId === playlist.id ? "active" : ""}" data-playlist-open="${playlist.id}" type="button">
-                            ${playlistCoverMarkup(playlist, "icon playlist-cover-mini")}
-                            <span>${escapeHtml(playlist.name)}</span>
+                        <button class="sidebar__playlist-button ${state.selectedPlaylistId === playlist.id ? "sidebar__playlist-button--active" : ""}" data-playlist-open="${playlist.id}" type="button">
+                            ${playlistCoverMarkup(playlist, "playlist-cover--small")}
+                            <span class="sidebar__playlist-name">${escapeHtml(playlist.name)}</span>
                         </button>
                     `).join("") || `<p class="subtle">Создайте первый плейлист</p>`}
                 </div>
             </section>
-            <section class="sidebar-stats">
-                <div class="stat-tile"><strong>${state.tracks.length}</strong><span class="subtle">tracks</span></div>
-                <div class="stat-tile"><strong>${state.playlists.length}</strong><span class="subtle">playlists</span></div>
-                <div class="stat-tile"><strong>${favoriteTracks.length}</strong><span class="subtle">favorites</span></div>
+            <section class="sidebar__stats">
+                <div class="sidebar__stat stat-tile"><strong class="stat-tile__value">${state.tracks.length}</strong><span class="subtle">tracks</span></div>
+                <div class="sidebar__stat stat-tile"><strong class="stat-tile__value">${state.playlists.length}</strong><span class="subtle">playlists</span></div>
+                <div class="sidebar__stat stat-tile"><strong class="stat-tile__value">${favoriteTracks.length}</strong><span class="subtle">favorites</span></div>
             </section>
         </aside>
     `;
@@ -769,12 +769,12 @@ function Sidebar() {
 function MusicCard(track) {
     return `
         <article class="music-card">
-            <div class="cover-wrap">
+            <div class="music-card__cover">
                 ${coverMarkup(track)}
-                <button class="floating-play ${track.id === state.currentTrackId && state.isPlaying ? "active" : ""}" data-play-track="${track.id}" type="button" title="${track.id === state.currentTrackId && state.isPlaying ? "Pause" : "Play"}">${track.id === state.currentTrackId && state.isPlaying ? "&#9208;" : "&#9654;"}</button>
+                <button class="music-card__play ${track.id === state.currentTrackId && state.isPlaying ? "music-card__play--active" : ""}" data-play-track="${track.id}" type="button" title="${track.id === state.currentTrackId && state.isPlaying ? "Pause" : "Play"}">${track.id === state.currentTrackId && state.isPlaying ? "&#9208;" : "&#9654;"}</button>
             </div>
-            <h3 title="${escapeHtml(track.title)}">${escapeHtml(track.title)}</h3>
-            <p>${escapeHtml(track.artist)} · ${escapeHtml(track.album)}</p>
+            <h3 class="music-card__title" title="${escapeHtml(track.title)}">${escapeHtml(track.title)}</h3>
+            <p class="music-card__meta">${escapeHtml(track.artist)} · ${escapeHtml(track.album)}</p>
         </article>
     `;
 }
@@ -784,26 +784,26 @@ function TrackList(tracks, options = {}) {
         return `<div class="empty-state"><h2>Ничего не найдено</h2><p class="subtle">Измените поиск, фильтр или загрузите собственный трек.</p></div>`;
     }
     return `
-        <div class="track-table">
+        <div class="track-list">
             ${tracks.map((track, index) => `
-                <div class="track-row ${track.id === state.currentTrackId ? "active" : ""}" data-track-id="${track.id}" data-track-index="${index + 1}">
-                    <div class="track-index">${index + 1}</div>
-                    <div class="track-main">
-                        ${coverMarkup(track, "cover-sm")}
-                        <div>
-                            <span class="track-title">${escapeHtml(track.title)}</span>
-                            <span class="track-artist">${escapeHtml(track.artist)}</span>
+                <div class="track-list__row ${track.id === state.currentTrackId ? "track-list__row--active" : ""}" data-track-id="${track.id}" data-track-index="${index + 1}">
+                    <div class="track-list__index">${index + 1}</div>
+                    <div class="track-list__main">
+                        ${coverMarkup(track, "cover--small")}
+                        <div class="track-list__text">
+                            <span class="track-list__title">${escapeHtml(track.title)}</span>
+                            <span class="track-list__artist">${escapeHtml(track.artist)}</span>
                         </div>
                     </div>
-                    <div class="track-meta album-cell">${escapeHtml(track.album)}</div>
-                    <div class="track-meta genre-cell">${escapeHtml(track.genre)}</div>
-                    <div class="track-duration">${formatTime(track.duration)}</div>
-                    <div class="row-actions">
-                        <button class="row-action ${track.id === state.currentTrackId && state.isPlaying ? "active" : ""}" data-play-track="${track.id}" type="button" title="${track.id === state.currentTrackId && state.isPlaying ? "Pause" : "Play"}">${track.id === state.currentTrackId && state.isPlaying ? "&#9208;" : "&#9654;"}</button>
-                        <button class="row-action ${state.favorites.has(track.id) ? "active" : ""}" data-favorite="${track.id}" type="button" title="В избранное">${state.favorites.has(track.id) ? "♥" : "♡"}</button>
-                        <button class="row-action" data-menu-track="${track.id}" type="button" title="Добавить в плейлист">＋</button>
-                        ${options.playlistId ? `<button class="row-action" data-remove-track="${track.id}" data-playlist-id="${options.playlistId}" type="button" title="Удалить из плейлиста">×</button>` : ""}
-                        <button class="row-action danger-action" data-delete-track="${track.id}" type="button" title="Delete track">×</button>
+                    <div class="track-list__meta track-list__meta--album">${escapeHtml(track.album)}</div>
+                    <div class="track-list__meta track-list__meta--genre">${escapeHtml(track.genre)}</div>
+                    <div class="track-list__duration">${formatTime(track.duration)}</div>
+                    <div class="track-list__actions">
+                        <button class="track-list__action ${track.id === state.currentTrackId && state.isPlaying ? "track-list__action--active" : ""}" data-play-track="${track.id}" type="button" title="${track.id === state.currentTrackId && state.isPlaying ? "Pause" : "Play"}">${track.id === state.currentTrackId && state.isPlaying ? "&#9208;" : "&#9654;"}</button>
+                        <button class="track-list__action ${state.favorites.has(track.id) ? "track-list__action--active" : ""}" data-favorite="${track.id}" type="button" title="В избранное">${state.favorites.has(track.id) ? "♥" : "♡"}</button>
+                        <button class="track-list__action" data-menu-track="${track.id}" type="button" title="Добавить в плейлист">＋</button>
+                        ${options.playlistId ? `<button class="track-list__action" data-remove-track="${track.id}" data-playlist-id="${options.playlistId}" type="button" title="Удалить из плейлиста">×</button>` : ""}
+                        <button class="track-list__action track-list__action--danger" data-delete-track="${track.id}" type="button" title="Delete track">×</button>
                     </div>
                 </div>
             `).join("")}
@@ -813,37 +813,37 @@ function TrackList(tracks, options = {}) {
 
 function UploadMusic() {
     return `
-        <section class="upload-panel">
+        <section class="upload">
             <h2>Загрузить трек</h2>
-            <form data-action="upload-track">
-                <div class="upload-grid">
-                    <label class="form-field full">
+            <form class="upload__form" data-action="upload-track">
+                <div class="upload__grid">
+                    <label class="upload__field upload__field--full">
                         <span>Любой аудиофайл</span>
-                        <div class="file-field">
-                            <input name="audio" type="file" accept="audio/*" required>
+                        <div class="upload__file">
+                            <input class="upload__file-input" name="audio" type="file" accept="audio/*" required>
                             <div><strong>Выберите аудио</strong><span data-file-label="audio">Формат должен поддерживаться браузером</span></div>
                         </div>
                     </label>
-                    <label class="form-field">
+                    <label class="upload__field">
                         <span>Обложка</span>
-                        <div class="file-field">
-                            <input name="cover" type="file" accept="image/png,image/jpeg,image/webp">
+                        <div class="upload__file">
+                            <input class="upload__file-input" name="cover" type="file" accept="image/png,image/jpeg,image/webp">
                             <div><strong>Выберите изображение</strong><span data-file-label="cover">PNG, JPG или WEBP</span></div>
                         </div>
                     </label>
-                    <label class="form-field">
+                    <label class="upload__field">
                         <span>Название</span>
                         <input class="text-input" name="title" type="text" required maxlength="80" placeholder="Название трека">
                     </label>
-                    <label class="form-field">
+                    <label class="upload__field">
                         <span>Исполнитель</span>
                         <input class="text-input" name="artist" type="text" required maxlength="80" placeholder="Имя исполнителя">
                     </label>
-                    <label class="form-field">
+                    <label class="upload__field">
                         <span>Альбом</span>
                         <input class="text-input" name="album" type="text" maxlength="80" placeholder="Single">
                     </label>
-                    <label class="form-field">
+                    <label class="upload__field">
                         <span>Жанр</span>
                         <select class="select-input" name="genre" required>
                             <option value="Pop">Pop</option>
@@ -856,9 +856,9 @@ function UploadMusic() {
                         </select>
                     </label>
                 </div>
-                <div class="upload-actions">
+                <div class="upload__actions">
                     <button class="pill-button" type="submit">Загрузить и сохранить</button>
-                    <button class="pill-button secondary" type="reset">Очистить</button>
+                    <button class="pill-button pill-button--secondary" type="reset">Очистить</button>
                 </div>
             </form>
         </section>
@@ -875,25 +875,25 @@ function PlaylistDetails() {
     const tracks = getFilteredTracks(state.tracks.filter((track) => ids.has(track.id)));
     return `
         <div class="playlist-detail">
-            <div class="playlist-head">
-                <label class="playlist-cover-picker" title="Change playlist cover">
+            <div class="playlist-detail__head">
+                <label class="playlist-detail__cover-picker" title="Change playlist cover">
                     ${playlistCoverMarkup(playlist)}
-                    <input data-playlist-cover-input="${playlist.id}" type="file" accept="image/png,image/jpeg,image/webp">
+                    <input class="playlist-detail__cover-input" data-playlist-cover-input="${playlist.id}" type="file" accept="image/png,image/jpeg,image/webp">
                 </label>
             </div>
             <p class="eyebrow">Плейлист</p>
             <h1>${escapeHtml(playlist.name)}</h1>
             <p class="subtle">${playlist.trackIds.length} треков</p>
-            <form class="rename-form" data-action="rename-playlist" data-playlist-id="${playlist.id}">
+            <form class="playlist-detail__rename-form" data-action="rename-playlist" data-playlist-id="${playlist.id}">
                 <input class="text-input" name="name" type="text" value="${escapeHtml(playlist.name)}" maxlength="40" required>
                 <button class="icon-button" type="submit" title="Переименовать">✓</button>
             </form>
-            <div class="playlist-actions">
+            <div class="playlist-detail__actions">
                 <button class="pill-button" data-play-collection="${playlist.id}" type="button" ${tracks.length ? "" : "disabled"}>Слушать плейлист</button>
                 <button class="danger-button" data-delete-playlist="${playlist.id}" type="button">Удалить плейлист</button>
             </div>
         </div>
-        <div class="playlist-tracks">
+        <div class="playlist-detail__tracks">
             ${TrackList(tracks, { playlistId: playlist.id })}
         </div>
     `;
@@ -901,19 +901,19 @@ function PlaylistDetails() {
 
 function PlaylistsView() {
     return `
-        <div class="playlist-grid">
-            <section class="playlist-panel">
+        <div class="playlists__grid">
+            <section class="playlists__panel">
                 <h2>Плейлисты</h2>
-                <div class="playlist-list">
+                <div class="playlists__list">
                     ${state.playlists.map((playlist) => `
-                        <button class="playlist-item ${state.selectedPlaylistId === playlist.id ? "active" : ""}" data-playlist-open="${playlist.id}" type="button">
+                        <button class="playlists__item ${state.selectedPlaylistId === playlist.id ? "playlists__item--active" : ""}" data-playlist-open="${playlist.id}" type="button">
                             <span><strong>${escapeHtml(playlist.name)}</strong><br><span class="subtle">${playlist.trackIds.length} треков</span></span>
                             <span>›</span>
                         </button>
                     `).join("") || `<p class="subtle">Пока пусто.</p>`}
                 </div>
             </section>
-            <section class="playlist-panel">${PlaylistDetails()}</section>
+            <section class="playlists__panel">${PlaylistDetails()}</section>
         </div>
     `;
 }
@@ -922,7 +922,7 @@ function HomeView() {
     const recent = state.tracks.slice(0, 5);
     return `
         <section class="section">
-            <div class="section-title-row"><h2>Recommendations</h2><button class="ghost-button" data-view="library" type="button">Open library</button></div>
+            <div class="section__header"><h2>Recommendations</h2><button class="ghost-button" data-view="library" type="button">Open library</button></div>
             <div class="card-grid">${recent.map(MusicCard).join("")}</div>
         </section>
         <section class="section">
@@ -942,7 +942,7 @@ function ItunesView() {
                 <p class="subtle">Search songs from iTunes and play 30-second previews.</p>
             </div>
         </div>
-        <section class="upload-panel">
+        <section class="upload">
             <form class="itunes-search-form" data-action="itunes-search">
                 <input class="text-input" name="query" type="search" value="${escapeHtml(state.itunes.query)}" placeholder="Artist, song or album" required>
                 <button class="pill-button" type="submit" ${state.itunes.isLoading ? "disabled" : ""}>${state.itunes.isLoading ? "Searching..." : "Search"}</button>
@@ -952,16 +952,16 @@ function ItunesView() {
         ${!state.itunes.error && state.itunes.isLoading ? `<div class="empty-state"><h2>Searching iTunes...</h2><p class="subtle">Please wait a moment.</p></div>` : ""}
         ${!state.itunes.error && !state.itunes.isLoading && state.itunes.query && !results.length ? `<div class="empty-state"><h2>No tracks found</h2><p class="subtle">Try another artist or song title.</p></div>` : ""}
         ${results.length ? `
-            <div class="card-grid itunes-grid">
+            <div class="card-grid card-grid--itunes">
                 ${results.map((track) => `
                     <article class="music-card">
-                        <div class="cover-wrap">
+                        <div class="music-card__cover">
                             ${coverMarkup(track)}
-                            <button class="floating-play" data-play-track="${track.id}" type="button" title="Play preview">▶</button>
+                            <button class="music-card__play" data-play-track="${track.id}" type="button" title="Play preview">▶</button>
                         </div>
-                        <h3 title="${escapeHtml(track.title)}">${escapeHtml(track.title)}</h3>
-                        <p>${escapeHtml(track.artist)} · ${escapeHtml(track.album)}</p>
-                        <button class="ghost-button itunes-add-button" data-add-itunes-track="${track.id}" type="button">Добавить в библиотеку</button>
+                        <h3 class="music-card__title" title="${escapeHtml(track.title)}">${escapeHtml(track.title)}</h3>
+                        <p class="music-card__meta">${escapeHtml(track.artist)} · ${escapeHtml(track.album)}</p>
+                        <button class="music-card__add-button ghost-button" data-add-itunes-track="${track.id}" type="button">Добавить в библиотеку</button>
                     </article>
                 `).join("")}
             </div>
@@ -996,31 +996,31 @@ function Player() {
     const track = getCurrentTrack();
     return `
         <footer class="player">
-            <div class="now-playing">
-                ${track ? coverMarkup(track, "cover-sm") : ""}
-                <div class="track-main-text">
-                    <span class="track-title">${escapeHtml(track?.title ?? "Нет трека")}</span>
-                    <span class="track-artist">${escapeHtml(track?.artist ?? "Выберите музыку")}</span>
+            <div class="player__current">
+                ${track ? coverMarkup(track, "cover--small") : ""}
+                <div class="player__track-text">
+                    <span class="track-list__title">${escapeHtml(track?.title ?? "Нет трека")}</span>
+                    <span class="track-list__artist">${escapeHtml(track?.artist ?? "Выберите музыку")}</span>
                 </div>
-                ${track ? `<button class="row-action ${state.favorites.has(track.id) ? "active" : ""}" data-favorite="${track.id}" type="button" title="В избранное">${state.favorites.has(track.id) ? "♥" : "♡"}</button>` : ""}
+                ${track ? `<button class="track-list__action ${state.favorites.has(track.id) ? "track-list__action--active" : ""}" data-favorite="${track.id}" type="button" title="В избранное">${state.favorites.has(track.id) ? "♥" : "♡"}</button>` : ""}
             </div>
-            <div class="player-center">
-                <div class="player-controls">
-                    <button class="round-control ${state.shuffle ? "active" : ""}" data-action="shuffle" type="button" title="Перемешать">⤨</button>
-                    <button class="round-control" data-action="prev" type="button" title="Предыдущий">⏮</button>
-                    <button class="round-control primary" data-action="toggle-play" type="button" title="Play/Pause">${state.isPlaying ? "⏸" : "▶"}</button>
-                    <button class="round-control" data-action="next" type="button" title="Следующий">⏭</button>
-                    <button class="round-control ${state.repeat === "one" ? "active" : ""}" data-action="repeat" type="button" title="Повтор">${state.repeat === "one" ? "①" : "↻"}</button>
+            <div class="player__center">
+                <div class="player__controls">
+                    <button class="player__control ${state.shuffle ? "player__control--active" : ""}" data-action="shuffle" type="button" title="Перемешать">⤨</button>
+                    <button class="player__control" data-action="prev" type="button" title="Предыдущий">⏮</button>
+                    <button class="player__control player__control--primary" data-action="toggle-play" type="button" title="Play/Pause">${state.isPlaying ? "⏸" : "▶"}</button>
+                    <button class="player__control" data-action="next" type="button" title="Следующий">⏭</button>
+                    <button class="player__control ${state.repeat === "one" ? "player__control--active" : ""}" data-action="repeat" type="button" title="Повтор">${state.repeat === "one" ? "①" : "↻"}</button>
                 </div>
-                <div class="progress-row">
-                    <span>${formatTime(state.currentTime)}</span>
-                    <input class="range" data-action="seek" type="range" min="0" max="${Math.max(1, state.duration || track?.duration || 1)}" step="0.1" value="${state.currentTime}">
-                    <span>${formatTime(state.duration || track?.duration)}</span>
+                <div class="player__progress">
+                    <span class="player__time">${formatTime(state.currentTime)}</span>
+                    <input class="player__range" data-action="seek" type="range" min="0" max="${Math.max(1, state.duration || track?.duration || 1)}" step="0.1" value="${state.currentTime}">
+                    <span class="player__time">${formatTime(state.duration || track?.duration)}</span>
                 </div>
             </div>
-            <div class="volume-row">
-                <span class="icon">♬</span>
-                <input class="range" data-action="volume" type="range" min="0" max="1" step="0.01" value="${state.volume}">
+            <div class="player__volume">
+                <span class="player__volume-icon">♬</span>
+                <input class="player__range player__range--volume" data-action="volume" type="range" min="0" max="1" step="0.01" value="${state.volume}">
             </div>
         </footer>
     `;
@@ -1031,17 +1031,17 @@ function PlaylistMenu() {
         return "";
     }
     return `
-        <div class="menu" style="left:${state.menu.x}px; top:${state.menu.y}px;">
-            ${state.playlists.map((playlist) => `<button data-add-track="${state.menu.trackId}" data-playlist-id="${playlist.id}" type="button">${escapeHtml(playlist.name)}</button>`).join("") || `<button type="button" disabled>Сначала создайте плейлист</button>`}
+        <div class="playlist-menu" style="left:${state.menu.x}px; top:${state.menu.y}px;">
+            ${state.playlists.map((playlist) => `<button class="playlist-menu__button" data-add-track="${state.menu.trackId}" data-playlist-id="${playlist.id}" type="button">${escapeHtml(playlist.name)}</button>`).join("") || `<button class="playlist-menu__button" type="button" disabled>Сначала создайте плейлист</button>`}
         </div>
     `;
 }
 
 function App() {
     return `
-        <div class="app-layout">
+        <div class="app__layout">
             ${Sidebar()}
-            <main class="main">
+            <main class="app__main">
                 ${SearchBar()}
                 ${ViewContent()}
             </main>
@@ -1067,24 +1067,27 @@ function updateTrackPlaybackIndicators() {
     document.querySelectorAll("[data-track-id]").forEach((row) => {
         const isCurrent = row.dataset.trackId === state.currentTrackId;
         const isActive = isCurrent && state.isPlaying;
-        row.classList.toggle("active", isCurrent);
 
-        const index = row.querySelector(".track-index");
+        row.classList.toggle("track-list__row--active", isCurrent);
+
+        const index = row.querySelector(".track-list__index");
         if (index) {
             index.textContent = row.dataset.trackIndex;
         }
 
         const playButton = row.querySelector("[data-play-track]");
         if (playButton) {
-            playButton.classList.toggle("active", isActive);
+
+            playButton.classList.toggle("track-list__action--active", isActive);
             playButton.title = isActive ? "Pause" : "Play";
             playButton.innerHTML = isActive ? "&#9208;" : "&#9654;";
         }
     });
 
-    document.querySelectorAll(".floating-play[data-play-track]").forEach((playButton) => {
+    document.querySelectorAll(".music-card__play[data-play-track]").forEach((playButton) => {
         const isActive = playButton.dataset.playTrack === state.currentTrackId && state.isPlaying;
-        playButton.classList.toggle("active", isActive);
+
+        playButton.classList.toggle("music-card__play--active", isActive);
         playButton.title = isActive ? "Pause" : "Play";
         playButton.innerHTML = isActive ? "&#9208;" : "&#9654;";
     });
@@ -1099,7 +1102,7 @@ function updatePlayerProgress() {
     const track = getCurrentTrack();
     const progress = player.querySelector('[data-action="seek"]');
     const volume = player.querySelector('[data-action="volume"]');
-    const progressLabels = player.querySelectorAll(".progress-row span");
+    const progressLabels = player.querySelectorAll(".player__time");
 
     if (progress) {
         progress.max = Math.max(1, state.duration || track?.duration || 1);
@@ -1180,7 +1183,7 @@ function bindEvents() {
         const collectionButton = closestAction(target, "[data-play-collection]");
         const control = closestAction(target, "[data-action]");
 
-        if (!closestAction(target, ".menu") && !menuButton && state.menu) {
+        if (!closestAction(target, ".playlist-menu") && !menuButton && state.menu) {
             state.menu = null;
             render();
             return;
@@ -1364,7 +1367,7 @@ async function init() {
         render();
         bindEvents();
     } catch (error) {
-        app.innerHTML = `<main class="main"><div class="empty-state"><h1>Не удалось запустить Re:Spot</h1><p class="subtle">${escapeHtml(error.message)}</p></div></main>`;
+        app.innerHTML = `<main class="app__main"><div class="empty-state"><h1>Не удалось запустить Re:Spot</h1><p class="subtle">${escapeHtml(error.message)}</p></div></main>`;
     }
 }
 

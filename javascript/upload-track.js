@@ -1,6 +1,6 @@
 const uploadForm = document.querySelector("#upload-track-form");
 const yearInput = document.querySelector("#track-year");
-const uploadMessage = document.querySelector(".form-message");
+const uploadMessage = document.querySelector(".upload-form__message");
 const currentYear = new Date().getFullYear();
 const TRACKS_KEY = "respot_tracks";
 
@@ -95,7 +95,7 @@ yearInput.addEventListener("input", validateYear);
 // File input preview handling
 function setupFileInput(inputId, containerSelector) {
     const input = document.getElementById(inputId);
-    const dropText = document.querySelector(`${containerSelector} .drop-text`);
+    const dropText = document.querySelector(`${containerSelector} .upload-form__drop-text`);
     const originalText = dropText.textContent;
 
     input.addEventListener("change", (e) => {
@@ -123,17 +123,17 @@ uploadForm.addEventListener("submit", (event) => {
         uploadTrackForm.save();
 
         uploadMessage.textContent = "Track saved successfully";
-        uploadMessage.classList.remove("is-error");
+        uploadMessage.classList.remove("upload-form__message--error");
         uploadForm.reset();
         yearInput.max = String(currentYear);
         
         // Reset file input texts
-        document.querySelector("#cover-drop-area .drop-text").textContent = "Add Cover Art";
-        document.querySelector("#audio-drop-area .drop-text").textContent = "Drop your track here";
+        document.querySelector("#cover-drop-area .upload-form__drop-text").textContent = "Add Cover Art";
+        document.querySelector("#audio-drop-area .upload-form__drop-text").textContent = "Drop your track here";
         document.querySelector("#cover-drop-area").style.borderColor = "";
         document.querySelector("#audio-drop-area").style.borderColor = "";
     } catch (error) {
         uploadMessage.textContent = error.message;
-        uploadMessage.classList.add("is-error");
+        uploadMessage.classList.add("upload-form__message--error");
     }
 });

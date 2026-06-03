@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -6,43 +6,43 @@
     <link rel="stylesheet" href="../css/style.css">
     <title>Re:Spot Playlists</title>
 </head>
-<body data-page="playlists">
+<body class="page" data-page="playlists">
     <aside class="sidebar" aria-label="Main navigation">
-        <a class="logo" href="index.html" aria-label="Re:Spot home"><img src="logo.png" alt=""><span>Re:Spot</span></a>
-        <nav class="primary-nav" aria-label="Primary">
-            <a class="nav-link" href="index.html"><span class="nav-icon home-icon"></span>Home</a>
-            <a class="nav-link" href="search.html"><span class="nav-icon search-icon"></span>Search</a>
-            <a class="nav-link" href="#"><span class="nav-icon browse-icon"></span>Browse</a>
-            <a class="nav-link" href="#"><span class="nav-icon radio-icon"></span>Radio</a>
+        <a class="sidebar__brand" href="index.html" aria-label="Re:Spot home"><img class="sidebar__brand-mark" src="logo.png" alt=""><span class="sidebar__brand-name">Re:Spot</span></a>
+        <nav class="primary-nav sidebar__nav" aria-label="Primary">
+            <a class="primary-nav__link" href="index.html"><span class="primary-nav__icon primary-nav__icon--home"></span>Home</a>
+            <a class="primary-nav__link" href="search.html"><span class="primary-nav__icon primary-nav__icon--search"></span>Search</a>
+            <a class="primary-nav__link" href="#"><span class="primary-nav__icon primary-nav__icon--browse"></span>Browse</a>
+            <a class="primary-nav__link" href="#"><span class="primary-nav__icon primary-nav__icon--radio"></span>Radio</a>
         </nav>
         <section class="library" aria-labelledby="library-title">
-            <div class="library-heading"><h2 id="library-title">Your library</h2><button type="button" aria-label="Create playlist">+</button></div>
-            <nav class="library-nav" aria-label="Library">
-                <a class="nav-link active" href="playlists.html"><span class="nav-icon playlist-icon"></span>Playlists</a>
-                <a class="nav-link" href="artists.html"><span class="nav-icon artist-icon"></span>Artists</a>
-                <a class="nav-link" href="albums.html"><span class="nav-icon album-icon"></span>Albums</a>
+            <div class="library__heading"><h2 class="library__title" id="library-title">Your library</h2><button class="library__create-button" type="button" aria-label="Create playlist">+</button></div>
+            <nav class="library__nav" aria-label="Library">
+                <a class="library__link library__link--active" href="playlists.html"><span class="library__icon library__icon--playlist"></span>Playlists</a>
+                <a class="library__link" href="artists.html"><span class="library__icon library__icon--artist"></span>Artists</a>
+                <a class="library__link" href="albums.html"><span class="library__icon library__icon--album"></span>Albums</a>
             </nav>
         </section>
     </aside>
 
-    <main class="app-shell">
+    <main class="page__main">
         <header class="topbar">
-            <div class="history-actions" aria-label="History navigation"><button type="button" aria-label="Back">&lsaquo;</button><button type="button" aria-label="Forward">&rsaquo;</button></div>
-            <div class="topbar-actions"><a class="pill-button" href="upload-track.html">Upload track</a></div>
+            <div class="topbar__history" aria-label="History navigation"><button class="topbar__history-button" type="button" aria-label="Back">&lsaquo;</button><button class="topbar__history-button" type="button" aria-label="Forward">&rsaquo;</button></div>
+            <div class="topbar__actions"><a class="pill-button" href="upload-track.html">Upload track</a></div>
         </header>
 
-        <section class="hero-section compact-hero" aria-labelledby="playlists-title">
-            <h1 id="playlists-title" data-page-title>Playlists</h1>
-            <p data-page-subtitle>Your saved mixes</p>
+        <section class="hero hero--compact" aria-labelledby="playlists-title">
+            <h1 id="playlists-title" class="hero__title" data-page-title>Playlists</h1>
+            <p class="hero__text" data-page-subtitle>Your saved mixes</p>
         </section>
 
         <section class="content-section" aria-labelledby="playlist-grid-title">
-            <div class="section-heading"><div><h2 id="playlist-grid-title">Your playlists</h2></div></div>
+            <div class="content-section__heading"><div><h2 id="playlist-grid-title">Your playlists</h2></div></div>
             <div class="card-grid" data-card-grid></div>
         </section>
 
         <section class="content-section" aria-labelledby="playlist-tracks-title">
-            <div class="section-heading"><div><h2 id="playlist-tracks-title">Playlist tracks</h2></div></div>
+            <div class="content-section__heading"><div><h2 id="playlist-tracks-title">Playlist tracks</h2></div></div>
             <div class="track-list" data-track-list></div>
             <p class="empty-state" data-empty-state hidden>No tracks found</p>
         </section>

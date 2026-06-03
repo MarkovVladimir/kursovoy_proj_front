@@ -7,71 +7,71 @@
     <title>Re:Spot Upload Track</title>
 </head>
 <body>
-    <header class="page-header">
-        <a class="brand" href="index.html" aria-label="Re:Spot">
-            <img src="logo.png" alt="Re:Spot">
+    <header class="upload-page__header">
+        <a class="upload-page__brand" href="index.html" aria-label="Re:Spot">
+            <img class="upload-page__logo" src="logo.png" alt="Re:Spot">
         </a>
-        <h1>Re:Spot</h1>
+        <h1 class="upload-page__title">Re:Spot</h1>
     </header>
 
-    <main class="upload-main">
-        <div class="upload-container">
-            <header class="upload-header">
-                <h1 id="upload-title">Upload your music</h1>
-                <p>Share your sound with the world</p>
+    <main class="upload-page__main">
+        <div class="upload-page__container">
+            <header class="upload-page__intro">
+                <h1 class="upload-page__intro-title" id="upload-title">Upload your music</h1>
+                <p class="upload-page__intro-text">Share your sound with the world</p>
             </header>
 
-            <form class="upload-form-grid" id="upload-track-form" action="#" method="post">
-                <div class="upload-column-left">
-                    <div class="field-group cover-field">
-                        <label class="section-label">COVER ART</label>
-                        <div class="file-drop-area" id="cover-drop-area">
-                            <input id="track-cover" name="track-cover" type="file" accept="image/png, image/jpeg" required>
-                            <div class="drop-content">
-                                <span class="drop-icon img-icon"></span>
-                                <span class="drop-text">Add Cover Art</span>
-                                <span class="drop-hint">JPG or PNG, 1400×1400px</span>
+            <form class="upload-form" id="upload-track-form" action="#" method="post">
+                <div class="upload-form__column upload-form__column--media">
+                    <div class="upload-form__file-group upload-form__file-group--cover">
+                        <label class="upload-form__section-label" for="track-cover">COVER ART</label>
+                        <div class="upload-form__dropzone upload-form__dropzone--cover" id="cover-drop-area">
+                            <input class="upload-form__file-input" id="track-cover" name="track-cover" type="file" accept="image/png, image/jpeg" required>
+                            <div class="upload-form__drop-content">
+                                <span class="upload-form__drop-icon upload-form__drop-icon--image"></span>
+                                <span class="upload-form__drop-text">Add Cover Art</span>
+                                <span class="upload-form__drop-hint">JPG or PNG, 1400×1400px</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="field-group audio-field">
-                        <label class="section-label">AUDIO FILE</label>
-                        <div class="file-drop-area dashed-area" id="audio-drop-area">
-                            <input id="track-file" name="track-file" type="file" accept="audio/mpeg, audio/wav, audio/flac, audio/aac" required>
-                            <div class="drop-content">
-                                <span class="drop-icon music-icon"></span>
-                                <span class="drop-text">Drop your track here</span>
-                                <span class="drop-hint">MP3, WAV, FLAC or AAC &middot; Max 100MB</span>
+                    <div class="upload-form__file-group upload-form__file-group--audio">
+                        <label class="upload-form__section-label" for="track-file">AUDIO FILE</label>
+                        <div class="upload-form__dropzone upload-form__dropzone--dashed" id="audio-drop-area">
+                            <input class="upload-form__file-input" id="track-file" name="track-file" type="file" accept="audio/mpeg, audio/wav, audio/flac, audio/aac" required>
+                            <div class="upload-form__drop-content">
+                                <span class="upload-form__drop-icon upload-form__drop-icon--music"></span>
+                                <span class="upload-form__drop-text">Drop your track here</span>
+                                <span class="upload-form__drop-hint">MP3, WAV, FLAC or AAC &middot; Max 100MB</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="upload-column-right">
-                    <h3 class="section-label">TRACK INFO</h3>
+                <div class="upload-form__column upload-form__column--info">
+                    <h3 class="upload-form__section-label">TRACK INFO</h3>
                     
-                    <div class="form-fields">
-                        <div class="field-item full-width">
-                            <label for="track-title">SONG TITLE <span class="req">*</span></label>
-                            <input id="track-title" name="track-title" type="text" placeholder="Give your track a name" required>
+                    <div class="upload-form__fields">
+                        <div class="upload-form__field upload-form__field--full">
+                            <label class="upload-form__label" for="track-title">SONG TITLE <span class="upload-form__required">*</span></label>
+                            <input class="upload-form__input" id="track-title" name="track-title" type="text" placeholder="Give your track a name" required>
                         </div>
 
-                        <div class="field-item full-width">
-                            <label for="track-artist">ARTIST NAME <span class="req">*</span></label>
-                            <input id="track-artist" name="track-artist" type="text" placeholder="Your artist name" required>
+                        <div class="upload-form__field upload-form__field--full">
+                            <label class="upload-form__label" for="track-artist">ARTIST NAME <span class="upload-form__required">*</span></label>
+                            <input class="upload-form__input" id="track-artist" name="track-artist" type="text" placeholder="Your artist name" required>
                         </div>
 
-                        <div class="field-item full-width">
-                            <label for="track-album">ALBUM</label>
-                            <input id="track-album" name="track-album" type="text" placeholder="Album name (optional)">
+                        <div class="upload-form__field upload-form__field--full">
+                            <label class="upload-form__label" for="track-album">ALBUM</label>
+                            <input class="upload-form__input" id="track-album" name="track-album" type="text" placeholder="Album name (optional)">
                         </div>
 
-                        <div class="field-row">
-                            <div class="field-item flex-1">
-                                <label for="track-genre">GENRE <span class="req">*</span></label>
-                                <div class="select-wrapper">
-                                    <select id="track-genre" name="track-genre" required>
+                        <div class="upload-form__field-row">
+                            <div class="upload-form__field upload-form__field--grow">
+                                <label class="upload-form__label" for="track-genre">GENRE <span class="upload-form__required">*</span></label>
+                                <div class="upload-form__select">
+                                    <select class="upload-form__select-control" id="track-genre" name="track-genre" required>
                                         <option value="" disabled selected>Select genre</option>
                                         <option value="pop">Pop</option>
                                         <option value="rock">Rock</option>
@@ -81,16 +81,16 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="field-item flex-width">
-                                <label for="track-year">RELEASE YEAR</label>
-                                <input id="track-year" name="track-year" type="number" min="1900" step="1" required>
+                            <div class="upload-form__field upload-form__field--year">
+                                <label class="upload-form__label" for="track-year">RELEASE YEAR</label>
+                                <input class="upload-form__input" id="track-year" name="track-year" type="number" min="1900" step="1" required>
                             </div>
                         </div>
                     </div>
 
-                    <div class="upload-guidelines">
-                        <h4>UPLOAD GUIDELINES</h4>
-                        <ul>
+                    <div class="upload-form__guidelines">
+                        <h4 class="upload-form__guidelines-title">UPLOAD GUIDELINES</h4>
+                        <ul class="upload-form__guidelines-list">
                             <li>You must own the rights to all uploaded content</li>
                             <li>Audio: 320kbps or higher recommended for best quality</li>
                             <li>Cover art: at least 1400×1400px for best display</li>
@@ -98,11 +98,11 @@
                         </ul>
                     </div>
 
-                    <div class="upload-actions">
-                        <button class="submit-button upload-btn" type="submit">Upload Track</button>
-                        <button class="back-button cancel-btn" type="button" onclick="window.history.back()">Cancel</button>
+                    <div class="upload-form__actions">
+                        <button class="upload-form__button upload-form__button--submit" type="submit">Upload Track</button>
+                        <button class="upload-form__button upload-form__button--cancel" type="button" onclick="window.history.back()">Cancel</button>
                     </div>
-                    <p class="form-message" aria-live="polite"></p>
+                    <p class="upload-form__message" aria-live="polite"></p>
                 </div>
             </form>
         </div>
